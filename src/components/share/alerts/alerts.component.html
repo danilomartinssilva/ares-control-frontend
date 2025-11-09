@@ -1,0 +1,9 @@
+<div class="alert-container">
+  <div *ngFor="let alert of alerts"
+       class="alert alert-dismissible fade show"
+       [class]="'alert-' + alert.type"
+       role="alert">
+    <strong>{{ alert.title }}</strong> {{ alert.message }}
+    <button type="button" class="btn-close" (click)="closeAlert()"></button>
+  </div>
+</div>
