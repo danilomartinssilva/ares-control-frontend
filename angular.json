@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "igamingFront": {
+    "frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,20 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/igaming-front",
+            "outputPath": "dist/frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles.css",
-              "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/datatables.net/js/dataTables.min.js"
-            ]
+            "styles": ["src/styles.css"],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -56,10 +50,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "igamingFront:build:production"
+              "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "igamingFront:build:development"
+              "buildTarget": "frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -67,7 +61,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "igamingFront:build"
+            "buildTarget": "frontend:build"
           }
         },
         "test": {
@@ -84,6 +78,6 @@
     }
   },
   "cli": {
-    "analytics": "a30f8106-ad15-4509-89b8-a1e3353df92c"
+    "analytics": false
   }
 }
