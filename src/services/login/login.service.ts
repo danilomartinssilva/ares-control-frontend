@@ -22,4 +22,8 @@ export class LoginService {
         })
       );
   }
+
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem('auth-token');
+  }
 }
