@@ -4,6 +4,7 @@ import { AlertsComponent } from '../components/share/alerts/alerts.component';
 
 @Component({
   selector: 'app-root',
+
   standalone: true,
   imports: [RouterOutlet, AlertsComponent],
   templateUrl: './app.component.html',

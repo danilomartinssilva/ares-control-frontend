@@ -1,0 +1,81 @@
+<div class="login-container">
+  <div class="card shadow login-card">
+    <div class="card-body p-4 p-md-5">
+      <div class="text-center mb-4">
+        <img
+          src="../../assets/logo.png"
+          alt="Logo da Empresa"
+          class="img-fluid logo-img"
+        />
+      </div>
+
+      <h3 class="card-title text-center mb-4">Acessar sua conta</h3>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">E-mail</label>
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            formControlName="email"
+            placeholder="nome@exemplo.com"
+            [ngClass]="{
+              'is-invalid':
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
+            class="invalid-feedback"
+          >
+            O e-mail é obrigatório.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="passwordInput" class="form-label">Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            id="passwordInput"
+            formControlName="password"
+            placeholder="Sua senha"
+            [ngClass]="{
+              'is-invalid':
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+            class="invalid-feedback"
+          >
+            A senha é obrigatória.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-100 mb-3"
+          [disabled]="loginForm.invalid"
+        >
+          Continuar
+        </button>
+      </form>
+
+      <div class="text-center mt-3">
+        <p class="text-muted mb-0">Novo por aqui?</p>
+        <button
+          (click)="navigateToRegister()"
+          class="btn btn-outline-secondary w-100 mt-2"
+        >
+          Cadastre-se
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

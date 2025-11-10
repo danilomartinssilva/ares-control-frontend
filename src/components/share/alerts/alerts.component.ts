@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Alert, AlertService } from '../../../services/alert.service';
+import { Alert, AlertService } from '../../../services/alert/alert.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-alerts',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './alerts.component.html',
-  styleUrl: './alerts.component.css',
+  styleUrls: ['./alerts.component.css'],
 })
 export class AlertsComponent implements OnInit {
   alerts: Alert[] = [];
@@ -17,7 +18,7 @@ export class AlertsComponent implements OnInit {
     });
   }
 
-  closeAlert() {
+  closeAlert(id: string) {
     AlertService.clearAlerts();
   }
 }

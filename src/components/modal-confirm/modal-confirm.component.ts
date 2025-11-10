@@ -3,7 +3,7 @@ import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   ModalConfirmService,
   ModalData,
-} from '../../services/modal-confirm.service';
+} from '../../services/modal-confirm/modal-confirm.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -4,6 +4,6 @@
        [class]="'alert-' + alert.type"
        role="alert">
     <strong>{{ alert.title }}</strong> {{ alert.message }}
-    <button type="button" class="btn-close" (click)="closeAlert()"></button>
+    <button type="button" class="btn-close" (click)="closeAlert(alert.id)"></button>
   </div>
 </div>
