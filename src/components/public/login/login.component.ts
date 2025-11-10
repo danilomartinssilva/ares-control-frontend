@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoginService } from '../../services/login/login.service';
+import { LoginService } from '../../../services/login/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 @Component({

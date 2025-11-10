@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users/users.service';
-import { UsersResponse } from '../../types/users/users';
+import { UsersService } from '../../../services/users/users.service';
+import { UsersResponse } from '../../../types/users/users';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   ionCheckmarkCircle,
