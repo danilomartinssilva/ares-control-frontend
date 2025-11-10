@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -22,7 +23,7 @@ export class LoginComponent {
   private authService = inject(LoginService);
   private router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -38,10 +39,8 @@ export class LoginComponent {
         })
         .subscribe({
           next: (response) => {
-            //SHOULD NAVIGATE TO DASHBOARD
-            console.log('Login successful:', response);
-            // Navigate to the dashboard
-            this.router.navigate(['/dashboard']);
+            this.toastr.success('Login successful!');
+            this.router.navigate(['/home']);
           },
           error: (error) => {
             console.error('Login failed:', error);

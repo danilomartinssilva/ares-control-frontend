@@ -17,9 +17,8 @@ export class LoginService {
       .post<LoginResponse>(`${this.apiUrl}/auth/signin`, credentials)
       .pipe(
         tap((response) => {
-          // Handle successful login response
           sessionStorage.setItem('auth-token', response.token);
-          sessionStorage.setItem('email', response.id);
+          sessionStorage.setItem('userId', response.id);
         })
       );
   }
