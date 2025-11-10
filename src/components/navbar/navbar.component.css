@@ -1,0 +1,24 @@
+.navbar-brand i {
+  margin-right: 8px;
+  color: #0d6efd;
+}
+.font-weight-bold {
+  font-weight: 700;
+}
+.nav-link{
+  color: #aeeeee !important;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: white !important;
+  border-bottom: 2px solid #0d6efd;
+}
+
+.btn-outline-danger i {
+  margin-right: 5px;
+}
+
+.custom-navbar-bg {
+  background-color:#4a4b4c;
+}

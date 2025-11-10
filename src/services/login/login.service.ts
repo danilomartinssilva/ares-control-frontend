@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { LoginRequest, LoginResponse } from '../../types/login/login';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 interface JwtPayload {
   sub: string;
@@ -14,6 +14,8 @@ interface JwtPayload {
 export class LoginService {
   private readonly apiUrl = 'http://localhost:3002';
   private readonly http = inject(HttpClient);
+  private readonly isLoggedSubject = new BehaviorSubject<boolean>(false);
+  isLogged$ = this.isLoggedSubject.asObservable();
 
   constructor() {}
 
@@ -31,11 +33,14 @@ export class LoginService {
   isLoggedIn(): boolean {
     const decodedToken = this.getDecodedToken();
     if (!decodedToken) {
+      this.isLoggedSubject.next(false);
       return false;
     }
     if (this.hasTokenActive(decodedToken)) {
+      this.isLoggedSubject.next(false);
       return false;
     }
+    this.isLoggedSubject.next(true);
     return true;
   }
 
@@ -71,7 +76,7 @@ export class LoginService {
     return expirationDate < Date.now();
   }
 
-  private clearSession() {
+  public clearSession() {
     sessionStorage.removeItem('auth-token');
     sessionStorage.removeItem('userId');
   }

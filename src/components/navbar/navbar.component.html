@@ -1,0 +1,73 @@
+<nav
+  class="navbar navbar-expand-lg navbar-dark custom-navbar-bg shadow-lg p-3 mb-5"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand font-weight-bold" [routerLink]="['/']">
+      <img
+        src="https://arescontrol.com.br/wp-content/uploads/2024/05/logo.png"
+        width="80"
+        height="50"
+        alt="ARES Control"
+        id="logo"
+      />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            [routerLink]="['/home']"
+            routerLinkActive="active"
+          >
+            Início
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="loginService.isLoggedIn()">
+          <a
+            class="nav-link"
+            [routerLink]="['/clients']"
+            routerLinkActive="active"
+          >
+            Clientes
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/about']"
+            routerLinkActive="active"
+          >
+            Sobre
+          </a>
+        </li>
+      </ul>
+
+      <div class="d-flex">
+        <button
+          *ngIf="loginService.isLoggedIn()"
+          (click)="onLogout()"
+          class="btn btn-danger"
+        >
+          <i class="bi bi-box-arrow-right"></i> Sair
+        </button>
+
+      </div>
+    </div>
+  </div>
+</nav>
