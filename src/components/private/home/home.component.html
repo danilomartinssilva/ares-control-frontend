@@ -25,7 +25,7 @@
         Gerenciamento de Clientes
       </h2>
 
-      <button class="btn btn-primary btn-sm btn-md-normal" style="width: 250px">
+      <button class="btn btn-primary btn-sm btn-md-normal" style="width: 250px" (click)="redirectToAddsUser()">
         <ng-icon name="ionCheckmarkCircle" class="me-2"></ng-icon>
         Cadastrar Novo Usuário
       </button>
@@ -90,6 +90,7 @@
                 <button
                   class="btn btn-danger btn-sm btn-action"
                   title="Excluir cliente"
+                  (click)="callModalConfirmRemove(user)"
                 >
                   <span class="d-none d-sm-inline">Excluir</span>
                   <ng-icon name="ionTrash" class="d-sm-none"></ng-icon>
@@ -109,8 +110,11 @@
           style="font-size: 48px"
         ></ng-icon>
         <p class="text-muted mt-2 mb-0">Nenhum usuario encontrado.</p>
-        <button class="btn btn-primary mt-3">Cadastrar Primeiro Usuário</button>
+        <button class="btn btn-primary mt-3"
+        (click)="redirectToAddsUser()"
+        >Cadastrar Primeiro Usuário</button>
       </div>
     </div>
   </div>
 </div>
+<app-modal-confirm></app-modal-confirm>

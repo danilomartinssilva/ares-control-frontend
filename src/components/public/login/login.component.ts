@@ -38,7 +38,7 @@ export class LoginComponent {
           password: this.loginForm.value.password,
         })
         .subscribe({
-          next: (response) => {
+          next: () => {
             this.toastr.success('Login successful!');
             this.router.navigate(['/home']);
           },
@@ -50,14 +50,6 @@ export class LoginComponent {
   }
 
   navigateToRegister() {
-    /*  this.authService
-      .login({
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password,
-      })
-      .subscribe((response) => {
-        console.log('Login successful:', response);
-      }); */
-    // Navigate to the registration page
+    this.router.navigate(['/register']);
   }
 }

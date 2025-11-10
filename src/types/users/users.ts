@@ -11,3 +11,10 @@ export interface UsersResponse {
   phone: string;
   address: Address[];
 }
+
+export interface UserCreatePayloadRequest {
+  email: string;
+  name: string;
+  phone: string;
+  password: string;
+}

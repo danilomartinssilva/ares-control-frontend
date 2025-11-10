@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+
+import { Subscription } from 'rxjs';
 import {
   ModalConfirmService,
   ModalData,
-} from '../../services/modal-confirm/modal-confirm.service';
-import { Subscription } from 'rxjs';
+} from '../../../services/modal-confirm/modal-confirm.service';
 
 @Component({
   selector: 'app-modal-confirm',

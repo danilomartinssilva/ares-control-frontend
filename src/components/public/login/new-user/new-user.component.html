@@ -1,1 +1,157 @@
-<p>new-user works!</p>
+<div class="login-container">
+  <div class="card shadow login-card">
+    <div class="card-body p-4 p-md-5">
+      <div class="text-center mb-4">
+        <img
+          src="../../assets/logo.png"
+          alt="Logo da Empresa"
+          class="img-fluid logo-img"
+        />
+      </div>
+
+      <h3 class="card-title text-center mb-4">Cadastrar Novo Usuário</h3>
+
+      <form [formGroup]="addUserForm" >
+        <div class="mb-3">
+          <label for="nameInput" class="form-label">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nameInput"
+            formControlName="name"
+            placeholder="Seu nome completo"
+            [ngClass]="{
+              'is-invalid':
+                addUserForm.get('name')?.invalid &&
+                addUserForm.get('name')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="addUserForm.get('name')?.errors?.['required'] && addUserForm.get('name')?.touched"
+            class="invalid-feedback"
+          >
+            O nome é obrigatório.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="phoneInput" class="form-label">Telefone</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phoneInput"
+            formControlName="phone"
+            placeholder="61 99999-9999"
+            [ngClass]="{
+              'is-invalid':
+                addUserForm.get('phone')?.invalid &&
+                addUserForm.get('phone')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="addUserForm.get('phone')?.errors?.['required'] && addUserForm.get('phone')?.touched"
+            class="invalid-feedback"
+          >
+            O telefone é obrigatório.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">E-mail</label>
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            formControlName="email"
+            placeholder="nome@exemplo.com"
+            [ngClass]="{
+              'is-invalid':
+                addUserForm.get('email')?.invalid &&
+                addUserForm.get('email')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="addUserForm.get('email')?.errors?.['required'] && addUserForm.get('email')?.touched"
+            class="invalid-feedback"
+          >
+            O e-mail é obrigatório.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="passwordInput" class="form-label">Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            id="passwordInput"
+            formControlName="password"
+            placeholder="Sua senha"
+            [ngClass]="{
+              'is-invalid':
+                addUserForm.get('password')?.invalid &&
+                addUserForm.get('password')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="addUserForm.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched"
+            class="invalid-feedback"
+          >
+            A senha é obrigatória.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="repeatedPasswordInput" class="form-label"
+            >Repetir Senha</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="repeatedPasswordInput"
+            formControlName="repeatedPassword"
+            placeholder="Repetir Senha"
+            [ngClass]="{
+              'is-invalid':
+                addUserForm.get('repeatedPassword')?.invalid &&
+                addUserForm.get('repeatedPassword')?.touched
+            }"
+          />
+
+          <div
+            *ngIf="addUserForm.get('repeatedPassword')?.errors?.['required'] && addUserForm.get('repeatedPassword')?.touched"
+            class="invalid-feedback"
+          >
+            A repetição da senha é obrigatória.
+          </div>
+          <div
+            *ngIf="addUserForm.errors?.['mismatch'] && addUserForm.touched"
+            class="text-danger mt-2"
+          >
+            As senhas devem ser iguais.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-100 mb-3"
+          [disabled]="addUserForm.invalid"
+          (click)="onAddUser()"
+        >
+          Continuar
+        </button>
+      </form>
+
+      <div class="text-center mt-3">
+        <p class="text-muted mb-0">Já possui uma conta?</p>
+        <button
+          (click)="redirectToLogin()"
+          class="btn btn-outline-secondary w-100 mt-2"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

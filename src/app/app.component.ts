@@ -1,15 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AlertsComponent } from '../components/share/alerts/alerts.component';
-import { NavbarComponent } from '../components/navbar/navbar.component';
+import { NavbarComponent } from '../components/share/navbar/navbar.component';
 import { LoginService } from '../services/login/login.service';
 import { CommonModule } from '@angular/common';
+import { ModalConfirmComponent } from '../components/share/modal-confirm/modal-confirm.component';
 
 @Component({
   selector: 'app-root',
 
   standalone: true,
-  imports: [RouterOutlet, AlertsComponent, NavbarComponent, CommonModule],
+  imports: [
+    RouterOutlet,
+    AlertsComponent,
+    NavbarComponent,
+    ModalConfirmComponent,
+    CommonModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

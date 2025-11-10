@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from '../components/login/login.component';
-import { HomeComponent } from '../components/home/home.component';
+import { LoginComponent } from '../components/public/login/login.component';
+import { HomeComponent } from '../components/private/home/home.component';
 import { authGuard } from '../guards/authGuard';
-import { AddressComponent } from '../components/address/address.component';
+import { AddressComponent } from '../components/private/address/address.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +18,13 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('../components/public/login/new-user/new-user.component').then(
+        (m) => m.NewUserComponent
+      ),
   },
   {
     path: 'address',

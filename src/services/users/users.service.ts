@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap } from 'rxjs';
-import { UsersResponse } from '../../types/users/users';
+import {
+  UserCreatePayloadRequest,
+  UsersResponse,
+} from '../../types/users/users';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -24,6 +27,23 @@ export class UsersService {
         throw error;
       })
     );
+  }
+
+  createUser(userData: UserCreatePayloadRequest) {
+    return this.http.post<UsersResponse>(`${this.apiUrl}/users`, userData).pipe(
+      tap((newUser) => {
+        const currentUsers = this.usersSubject.getValue();
+        this.usersSubject.next([...currentUsers, newUser]);
+      }),
+      catchError((error) => {
+        console.error('Error creating user:', error);
+        throw error;
+      })
+    );
+  }
+
+  get users$() {
+    return this.usersSubject.asObservable();
   }
 
   deleteUser(userId: string) {
