@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { LoginRequest, LoginResponse } from '../../types/login/login';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
+import { UsersResponse } from '../../types/users/users';
 
 interface JwtPayload {
   sub: string;
@@ -16,6 +17,7 @@ export class LoginService {
   private readonly http = inject(HttpClient);
   private readonly isLoggedSubject = new BehaviorSubject<boolean>(false);
   isLogged$ = this.isLoggedSubject.asObservable();
+  private readonly usersSubject = new BehaviorSubject<UsersResponse>(null!);
 
   constructor() {}
 
@@ -79,5 +81,13 @@ export class LoginService {
   public clearSession() {
     sessionStorage.removeItem('auth-token');
     sessionStorage.removeItem('userId');
+  }
+
+  findById(userId: string) {
+    return this.http.get<UsersResponse>(`${this.apiUrl}/users/${userId}`);
+  }
+
+  get user$() {
+    return this.usersSubject.asObservable();
   }
 }

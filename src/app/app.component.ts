@@ -25,10 +25,6 @@ export class AppComponent implements OnInit {
 
   handleLoginStatusChange() {
     this.loginService.isLogged$.subscribe((status) => {
-      console.log(
-        '🚀 ~ AppComponent ~ handleLoginStatusChange ~ status:',
-        status
-      );
       this.isLoggedIn = status;
     });
   }

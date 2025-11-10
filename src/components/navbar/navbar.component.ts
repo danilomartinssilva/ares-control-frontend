@@ -12,14 +12,32 @@ import { LoginService } from '../../services/login/login.service';
 })
 export class NavbarComponent implements OnInit {
   loginService = inject(LoginService);
-  private router = inject(Router);
+  name = '';
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getUserById();
+  }
+
+  getUserById() {
+    const userId = sessionStorage.getItem('userId') || '';
+    this.loginService.findById(userId).subscribe({
+      next: (user) => {
+        this.name = user.name;
+      },
+      error: (error) => {
+        console.error('Error fetching user:', error);
+      },
+    });
+  }
 
   onLogout() {
     this.loginService.clearSession();
     window.location.reload();
+  }
+
+  initialOfName(): string {
+    return this.name ? this.name.charAt(0).toUpperCase() : '';
   }
 }
