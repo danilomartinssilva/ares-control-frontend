@@ -20,18 +20,11 @@
       class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3"
     >
       <h2 class="mb-0 h4 h3-md">Gerenciamento de Clientes</h2>
-      <button
-        class="btn btn-primary btn-sm btn-md-normal"
-
-      >
+      <button class="btn btn-primary btn-sm btn-md-normal">
         <ng-icon name="ionCheckmarkCircle" class="me-2"></ng-icon>
         Cadastrar Novo Usuário
       </button>
     </div>
-
-
-
-
 
     <div class="table-responsive">
       <table class="table table-bordered table-striped table-hover mb-0">
@@ -40,18 +33,20 @@
             <th class="d-none d-sm-table-cell">ID</th>
             <th>Name</th>
             <th class="d-none d-lg-table-cell">Email</th>
+            <th class="d-none d-lg-table-cell">Phone</th>
+
             <th width="150" class="text-center">Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of usersSubscribers">
             <td class="d-none d-sm-table-cell">{{ user.id }}</td>
-
             <td>
               <div class="d-flex flex-column">
                 <span class="fw-medium">{{ user.name }}</span>
                 <small class="text-muted d-md-none">ID: {{ user.id }}</small>
                 <small class="text-muted d-lg-none">{{ user.email }}</small>
+                <small class="text-muted d-lg-none">{{ user.phone }}</small>
               </div>
             </td>
 
@@ -64,14 +59,12 @@
                 {{ user.email }}
               </span>
             </td>
-
-
+            <td class="d-none d-lg-table-cell">{{ user.phone }}</td>
 
             <td>
               <div class="d-flex flex-nowrap gap-1 justify-content-center">
                 <button
                   class="btn btn-primary btn-sm btn-action"
-
                   title="Ver detalhes"
                 >
                   <span class="d-none d-sm-inline">Detalhes</span>
@@ -80,7 +73,6 @@
 
                 <button
                   class="btn btn-info btn-sm btn-action"
-
                   title="Editar cliente"
                 >
                   <span class="d-none d-sm-inline">Editar</span>
@@ -92,7 +84,6 @@
 
                 <button
                   class="btn btn-danger btn-sm btn-action"
-
                   title="Excluir cliente"
                 >
                   <span class="d-none d-sm-inline">Excluir</span>
@@ -113,13 +104,8 @@
           style="font-size: 48px"
         ></ng-icon>
         <p class="text-muted mt-2 mb-0">Nenhum usuario encontrado.</p>
-        <button class="btn btn-primary mt-3" >
-          Cadastrar Primeiro Usuário
-        </button>
+        <button class="btn btn-primary mt-3">Cadastrar Primeiro Usuário</button>
       </div>
     </div>
-
   </div>
 </div>
-
-
