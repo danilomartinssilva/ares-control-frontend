@@ -1,4 +1,4 @@
 export const environment = {
-  baseUrl: 'http://localhost:3002',
+  baseUrl: 'https://ares-control-backend-1.onrender.com',
   production: true,
 };
