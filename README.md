@@ -4,6 +4,10 @@ O **Ares Control Frontend** é a interface de usuário (UI) desenvolvida em **An
 
 ---
 
+## Login
+Email: **admin@ares-control.com.br**	
+Password: **FbzZ$aR8M$Ak**
+
 ## 🚀 Acesso Rápido
 
 Aqui estão os links para a aplicação em produção e a documentação do backend:
