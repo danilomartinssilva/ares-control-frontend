@@ -1,0 +1,227 @@
+<div
+  class="modal fade"
+  [class.show]="isVisible"
+  [style.display]="isVisible ? 'block' : 'none'"
+  tabindex="-1"
+  role="dialog"
+  style="background-color: rgba(0, 0, 0, 0.5); overflow-y: auto"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content shadow-lg rounded-lg">
+      <form [formGroup]="editAddressForm" (ngSubmit)="onSubmit()">
+        <div
+          class="modal-header bg-primary text-white border-bottom-0 rounded-top-lg"
+        >
+          <h5 class="modal-title">{{ title }}</h5>
+          <ng-icon name="ionCheckmarkCircle" class="ms-2"></ng-icon>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            aria-label="Close"
+            (click)="close()"
+          ></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <p class="text-muted mb-4">{{ message }}</p>
+
+          <div
+            *ngIf="editAddressForm.errors?.['mismatch'] && (editAddressForm.get('password')?.value || editAddressForm.get('repeatedPassword')?.value)"
+            class="alert alert-danger mb-4"
+          >
+            ❌ As senhas digitadas devem ser iguais.
+          </div>
+
+          <div class="row">
+            <!-- Rua -->
+            <div class="col-md-12 mb-3">
+              <label for="street" class="form-label fw-bold">Rua *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="street"
+                formControlName="street"
+                [class.is-invalid]="
+                  editAddressForm.get('street')?.invalid &&
+                  editAddressForm.get('street')?.touched
+                "
+                placeholder="Digite a rua"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('street')?.errors?.['required'] && editAddressForm.get('street')?.touched"
+              >
+                Rua é obrigatória
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('street')?.errors?.['minlength'] && editAddressForm.get('street')?.touched"
+              >
+                Rua deve ter pelo menos 3 caracteres
+              </div>
+            </div>
+
+       <!--      <div class="col-md-12 mb-3">
+              <label for="neighborhood" class="form-label fw-bold"
+                >Bairro *</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="neighborhood"
+                formControlName="neighborhood"
+                [class.is-invalid]="
+                  editAddressForm.get('neighborhood')?.invalid &&
+                  editAddressForm.get('neighborhood')?.touched
+                "
+                placeholder="Digite o bairro"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('neighborhood')?.errors?.['required'] && editAddressForm.get('neighborhood')?.touched"
+              >
+                Bairro é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('neighborhood')?.errors?.['minlength'] && editAddressForm.get('neighborhood')?.touched"
+              >
+                Bairro deve ter pelo menos 3 caracteres
+              </div>
+            </div> -->
+
+            <div class="col-md-6 mb-3">
+              <label for="city" class="form-label fw-bold">Cidade *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                formControlName="city"
+                [class.is-invalid]="
+                  editAddressForm.get('city')?.invalid &&
+                  editAddressForm.get('city')?.touched
+                "
+                placeholder="Digite a cidade"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('city')?.errors?.['required'] && editAddressForm.get('city')?.touched"
+              >
+                Cidade é obrigatória
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('city')?.errors?.['minlength'] && editAddressForm.get('city')?.touched"
+              >
+                Cidade deve ter pelo menos 2 caracteres
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="state" class="form-label fw-bold">Estado *</label>
+              <input
+                type="text"
+                class="form-control"
+
+                maxlength="2"
+                id="state"
+                formControlName="state"
+                [class.is-invalid]="
+                  editAddressForm.get('state')?.invalid &&
+                  editAddressForm.get('state')?.touched"
+                placeholder="Digite o estado"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('state')?.errors?.['required'] && editAddressForm.get('state')?.touched"
+              >
+                Estado é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('state')?.errors?.['minlength'] && editAddressForm.get('state')?.touched"
+              >
+                Estado deve ter pelo menos 2 caracteres
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="zipCode" class="form-label fw-bold">CEP *</label>
+              <input
+                type="number"
+                class="form-control"
+                maxlength="8"
+                id="zipCode"
+                formControlName="zipCode"
+                [class.is-invalid]="
+                  editAddressForm.get('zipCode')?.invalid &&
+                  editAddressForm.get('zipCode')?.touched
+                "
+                placeholder="Digite o CEP"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('zipCode')?.errors?.['required'] && editAddressForm.get('zipCode')?.touched"
+              >
+                CEP é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"s
+                *ngIf="editAddressForm.get('zipCode')?.errors?.['minlength'] && editAddressForm.get('zipCode')?.touched"
+              >
+                CEP deve ter pelo menos 5 caracteres
+              </div>
+            </div>
+            <!-- alias-->
+            <div class="col-md-6 mb-3">
+              <label for="alias" class="form-label fw-bold">Apelido *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="alias"
+                formControlName="alias"
+                [class.is-invalid]="
+                  editAddressForm.get('alias')?.invalid &&
+                  editAddressForm.get('alias')?.touched
+                "
+                placeholder="Digite um apelido para o endereço"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('alias')?.errors?.['required'] && editAddressForm.get('alias')?.touched"
+              >
+                Apelido é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('alias')?.errors?.['minlength'] && editAddressForm.get('alias')?.touched"
+              >
+                Apelido deve ter pelo menos 3 caracteres
+              </div>
+              </div>
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer border-top-0 p-3">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="close()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="editAddressForm.invalid"
+          >
+            <ng-icon name="ionCheckmarkCircle" class="me-2"></ng-icon>
+            Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

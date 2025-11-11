@@ -9,13 +9,13 @@ import {
   ValidatorFn,
   AbstractControl,
 } from '@angular/forms';
-import { ModalEditUserService } from '../../services/modal-edit-user.service';
 import { Subscription } from 'rxjs';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { ionCheckmarkCircle } from '@ng-icons/ionicons';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../services/users/users.service';
 import { ToastrService } from 'ngx-toastr';
+import { ModalEditUserService } from '../../services/modal-edit-user/modal-edit-user.service';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl
@@ -66,7 +66,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.modalSubscription = this.modalEditUserService
       .getModalState()
       .subscribe((state) => {
-        console.log('🚀 ~ EditUserComponent ~ Novo Estado da Modal:', state);
         this.isVisible = state.show;
         this.userSelected = state.userSelected;
 

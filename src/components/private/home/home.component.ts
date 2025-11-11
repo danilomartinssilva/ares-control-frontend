@@ -18,12 +18,20 @@ import {
 } from '../../../services/modal-confirm/modal-confirm.service';
 import { ModalConfirmComponent } from '../../share/modal-confirm/modal-confirm.component';
 import { EditUserComponent } from '../../edit-user/edit-user.component';
-import { ModalEditUserService } from '../../../services/modal-edit-user.service';
+import { ModalEditUserService } from '../../../services/modal-edit-user/modal-edit-user.service';
+import { ModalEditAddressService } from '../../../services/modal-edit-address/modal-edit-address.service';
+import { NewAddressComponent } from '../new-address/new-address.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, NgIcon, ModalConfirmComponent, EditUserComponent],
+  imports: [
+    CommonModule,
+    NgIcon,
+    ModalConfirmComponent,
+    EditUserComponent,
+    NewAddressComponent,
+  ],
   viewProviders: [
     provideIcons({
       ionLockClosed,
@@ -34,7 +42,12 @@ import { ModalEditUserService } from '../../../services/modal-edit-user.service'
       ionChevronForward,
     }),
   ],
-  providers: [UsersService, ModalConfirmService, ModalEditUserService],
+  providers: [
+    UsersService,
+    ModalConfirmService,
+    ModalEditUserService,
+    ModalEditAddressService,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -42,6 +55,7 @@ export class HomeComponent implements OnInit {
   usersSubscribers: UsersResponse[] = [];
   private modalService = inject(ModalConfirmService);
   private modalEditUserService = inject(ModalEditUserService);
+  private modalEditAddressService = inject(ModalEditAddressService);
   private currentUserToDelete: string | null = null;
   isVisibleUpdateUser: boolean = false;
   currentUserToUpdate: UsersResponse | null = null;
@@ -53,18 +67,6 @@ export class HomeComponent implements OnInit {
   constructor(private usersService: UsersService) {}
 
   private subscribeToUsers(): void {
-    /*  this.usersService.getListOfUsers().subscribe({
-      next: (users) => {
-        console.log('🚀 ~ HomeComponent ~ subscribeToUsers ~ users:', users);
-        this.usersSubscribers = users;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error loading users in component:', error);
-        this.loading = false;
-        this.error = error.message || 'Unknown error';
-      },
-    }); */
     this.usersService.users$.subscribe({
       next: (users) => {
         this.usersSubscribers = users;
@@ -117,7 +119,15 @@ export class HomeComponent implements OnInit {
   }
 
   callModalUpdateUser(user: UsersResponse): void {
-    this.modalEditUserService.show(user);
+    this.modalEditUserService.show(user, null);
+  }
+
+  callModalAddressUser(user: UsersResponse): void {
+    this.modalEditAddressService.show({
+      show: true,
+      userSelected: user,
+      addressSelected: null,
+    });
   }
 
   ngOnInit() {
