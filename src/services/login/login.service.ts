@@ -3,6 +3,7 @@ import { LoginRequest, LoginResponse } from '../../types/login/login';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { UsersResponse } from '../../types/users/users';
+import { environment } from '../../environments/environment';
 
 interface JwtPayload {
   sub: string;
@@ -13,7 +14,7 @@ interface JwtPayload {
   providedIn: 'root',
 })
 export class LoginService {
-  private readonly apiUrl = 'http://localhost:3002';
+  private readonly apiUrl = environment.baseUrl;
   private readonly http = inject(HttpClient);
   private readonly isLoggedSubject = new BehaviorSubject<boolean>(false);
   isLogged$ = this.isLoggedSubject.asObservable();
