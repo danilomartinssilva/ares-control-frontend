@@ -148,10 +148,11 @@
             <div class="col-md-6 mb-3">
               <label for="zipCode" class="form-label fw-bold">CEP *</label>
               <input
-                type="number"
+                type="text"
                 class="form-control"
                 maxlength="8"
                 id="zipCode"
+               (input)="maskedZipCode($event)"
                 formControlName="zipCode"
                 [class.is-invalid]="
                   editAddressForm.get('zipCode')?.invalid &&
@@ -172,6 +173,34 @@
                 CEP deve ter pelo menos 5 caracteres
               </div>
             </div>
+            <!-- country-->
+            <div class="col-md-6 mb-3">
+              <label for="country" class="form-label fw-bold">País *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="country"
+                formControlName="country"
+                [class.is-invalid]="
+                  editAddressForm.get('country')?.invalid &&
+                  editAddressForm.get('country')?.touched
+                "
+                placeholder="Digite o país"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('country')?.errors?.['required'] && editAddressForm.get('country')?.touched"
+              >
+                País é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editAddressForm.get('country')?.errors?.['minlength'] && editAddressForm.get('country')?.touched"
+              >
+                País deve ter pelo menos 3 caracteres
+              </div>
+            </div>
+
             <!-- alias-->
             <div class="col-md-6 mb-3">
               <label for="alias" class="form-label fw-bold">Apelido *</label>

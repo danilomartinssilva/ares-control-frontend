@@ -2,7 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { AddressResponse } from '../../types/address/address';
+import {
+  AddressCreatePayloadRequest,
+  AddressResponse,
+} from '../../types/address/address';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +30,7 @@ export class AddressService {
       );
   }
 
-  createAddress(addressData: Partial<AddressResponse>) {
+  createAddress(addressData: Partial<AddressCreatePayloadRequest>) {
     return this.http
       .post<AddressResponse>(`${this.apiUrl}/address`, addressData)
       .pipe(

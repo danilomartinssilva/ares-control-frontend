@@ -6,6 +6,7 @@ export interface AddressCreatePayloadRequest {
   userId: string;
   alias?: string;
   defaultAddress?: boolean;
+  country: string;
 }
 
 export interface AddressResponse {

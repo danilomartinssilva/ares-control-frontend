@@ -76,6 +76,21 @@ export class NewAddressComponent implements OnInit, OnChanges {
     });
   }
 
+  maskedZipCode(event: any): void {
+    let value = event.target.value;
+    value = value.replace(/\D/g, '');
+    if (value.length > 8) {
+      value = value.substring(0, 8);
+    }
+    let maskedValue = value;
+    if (value.length > 5) {
+      maskedValue = value.replace(/^(\d{5})(\d{1,3})$/, '$1-$2');
+    }
+
+    event.target.value = maskedValue;
+    this.editAddressForm.get('zipCode')?.setValue(value, { emitEvent: false });
+  }
+
   onSubmit(): void {
     if (this.editAddressForm.valid) {
       this.addressService
@@ -84,18 +99,18 @@ export class NewAddressComponent implements OnInit, OnChanges {
           street: this.editAddressForm.value.street,
           city: this.editAddressForm.value.city,
           state: this.editAddressForm.value.state,
-          zipCode: this.editAddressForm.value.zipCode,
+          zipCode: String(this.editAddressForm.value.zipCode),
           userId: this.userSelected ? this.userSelected.id : '',
+          country: this.editAddressForm.value.country || 'Brasil',
           defaultAddress: false,
         })
         .subscribe({
-          next: (response) => {
+          next: () => {
             this.toastService.success('Endereço criado com sucesso!');
             this.modalEditAddressService.hide();
             this.editAddressForm.reset();
           },
         });
-      // Handle form submission
     } else {
       this.toastService.error(
         'Por favor, preencha todos os campos corretamente.'
