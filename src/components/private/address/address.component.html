@@ -1,1 +1,171 @@
-<p>address works!</p>
+<div class="container-fluid">
+  <div class="mb-4">
+    <a [routerLink]="['/home']" class="text-decoration-none text-secondary"
+      ><ng-icon name="ionArrowBack" class="me-2"></ng-icon>Voltar para
+      Clientes</a
+    >
+  </div>
+
+  <!-- Card com informacoes do usuario -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+        <div
+          class="d-flex align-items-center justify-content-center user-name-large"
+        >
+          {{ userSelected?.name?.charAt(0) || "" }}
+        </div>
+
+        <div class="text-center text-md-start">
+          <h4 class="mb-1">{{ userSelected?.name }}</h4>
+          <p class="mb-0 text-muted">{{ userSelected?.email }}</p>
+          <p class="mb-0 text-muted">{{ userSelected?.phone }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card contendo endereco default do usuario-->
+
+  <div *ngIf="!loading && addressDefault">
+    <div class="card mb-4 border-primary">
+      <div class="card-header bg-primary text-white">Endereço Principal</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ addressDefault?.alias }}</h5>
+        <p class="card-text">
+          {{ addressDefault?.street }}, {{ addressDefault?.city }} -
+          {{ addressDefault?.state }}, CEP: {{ addressDefault?.zipCode }},
+          <b>{{ addressDefault?.country }}</b>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+    <p class="mt-2 text-muted">Carregando Endereços...</p>
+  </div>
+
+  <div *ngIf="!loading">
+    <div
+      class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3"
+    >
+      <div class="d-none d-md-block" style="width: 250px"></div>
+
+      <h2 class="mb-0 h4 h3-md text-center flex-grow-1">
+        Gerenciamento de Endereços
+      </h2>
+
+      <button
+        class="btn btn-primary btn-sm btn-md-normal"
+        style="width: 250px"
+        (click)="callModalAddressUser()"
+      >
+        <ng-icon name="ionCheckmarkCircle" class="me-2"></ng-icon>
+        Cadastrar Novo Endereço
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th class="d-none d-sm-table-cell">ID</th>
+            <th>Endereço / Localidade</th>
+            <th class="d-none d-lg-table-cell">Rua e Número</th>
+            <th class="d-none d-md-table-cell">CEP</th>
+
+            <th width="150" class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let address of addressesSubscribers">
+            <td class="d-none d-sm-table-cell">
+              {{ address.id }}
+
+              <ng-container *ngIf="address.defaultAddress">
+                <span class="badge bg-success ms-2 p-2">(Principal)</span>
+              </ng-container>
+
+              <ng-container *ngIf="!address.defaultAddress">
+                <button
+                  class="btn btn-link btn-sm p-2 m-0 align-baseline"
+                  (click)="setDefaultAddress(address)"
+                >
+                  <span class="badge bg-secondary ms-2 p-2"
+                    >Definir como Principal</span
+                  >
+                </button>
+              </ng-container>
+            </td>
+
+            <td>
+              <div class="d-flex flex-column">
+                <small class="text-muted d-sm-none">ID: {{ address.id }}</small>
+
+                <span class="fw-bold">{{ address.alias }}</span>
+
+                <small class="d-lg-none text-muted">
+                  {{ address.street }}
+                </small>
+
+                <small class="text-muted">
+                  {{ address.city }} - {{ address.state }}
+                </small>
+
+                <small class="d-md-none text-info mt-1"
+                  >CEP: {{ address.zipCode }}</small
+                >
+              </div>
+            </td>
+
+            <td class="d-none d-lg-table-cell">
+              <span
+                class="text-truncate d-inline-block"
+                style="max-width: 300px"
+                [title]="address.street"
+              >
+                {{ address.street }}
+              </span>
+            </td>
+
+            <td class="d-none d-md-table-cell">
+              {{ address.zipCode }}
+            </td>
+
+            <td>
+              <div class="d-flex flex-nowrap gap-1 justify-content-center">
+                <button
+                  class="btn btn-danger btn-sm btn-action"
+                  title="Excluir cliente"
+                  (click)="callModalConfirmRemove(address)"
+                >
+                  <span class="d-none d-sm-inline">Excluir</span>
+                  <ng-icon name="ionTrash" class="d-sm-none"></ng-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="addressesSubscribers.length === 0" class="text-center py-5">
+      <div class="py-4">
+        <ng-icon
+          name="ionPeople"
+          class="text-muted"
+          style="font-size: 48px"
+        ></ng-icon>
+        <p class="text-muted mt-2 mb-0">Nenhum endereço encontrado.</p>
+        <button class="btn btn-primary mt-3">
+          Cadastrar Primeiro Endereço
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-new-address></app-new-address>
+<app-modal-confirm></app-modal-confirm>

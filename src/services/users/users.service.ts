@@ -80,4 +80,8 @@ export class UsersService {
       })
     );
   }
+
+  findById(userId: string) {
+    return this.http.get<UsersResponse>(`${this.apiUrl}/users/${userId}`);
+  }
 }

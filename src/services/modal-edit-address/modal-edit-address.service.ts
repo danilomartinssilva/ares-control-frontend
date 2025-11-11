@@ -5,7 +5,7 @@ import { UsersResponse } from '../../types/users/users';
 
 interface ModalEditAddressState {
   show: boolean;
-  userSelected?: UsersResponse;
+  userSelected?: Partial<UsersResponse>;
   addressSelected?: AddressResponse | null;
 }
 
@@ -15,7 +15,7 @@ interface ModalEditAddressState {
 export class ModalEditAddressService {
   private readonly modalEditAddressSubject = new Subject<{
     show: boolean;
-    userSelected?: UsersResponse;
+    userSelected?: Partial<UsersResponse>;
     addressSelected?: AddressResponse | null;
   }>();
 

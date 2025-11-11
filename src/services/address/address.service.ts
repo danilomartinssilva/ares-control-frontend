@@ -18,13 +18,12 @@ export class AddressService {
 
   getListAddressByUserId(userId: string) {
     return this.http
-      .get<AddressResponse[]>(`${this.apiUrl}/addresses/user/${userId}`)
+      .get<AddressResponse[]>(`${this.apiUrl}/address/user/${userId}`)
       .pipe(
         tap((response) => {
           this.addressSubject.next(response);
         }),
         catchError((error) => {
-          console.error('Error fetching addresses:', error);
           throw error;
         })
       );
@@ -39,7 +38,56 @@ export class AddressService {
           this.addressSubject.next([...currentAddresses, newAddress]);
         }),
         catchError((error) => {
-          console.error('Error creating address:', error);
+          throw error;
+        })
+      );
+  }
+
+  removeAddress(addressId: string) {
+    return this.http.delete<void>(`${this.apiUrl}/address/${addressId}`).pipe(
+      tap(() => {
+        const currentAddresses = this.addressSubject.getValue();
+        const updatedAddresses = currentAddresses.filter(
+          (address) => address.id !== addressId
+        );
+        console.log(
+          '🚀 ~ AddressService ~ removeAddress ~ updatedAddresses:',
+          updatedAddresses
+        );
+        this.addressSubject.next(updatedAddresses);
+      }),
+      catchError((error) => {
+        throw error;
+      })
+    );
+  }
+
+  //set-default/:addressId/user/:userId
+  setDefaultAddress(addressId: string, userId: string) {
+    return this.http
+      .put<AddressResponse>(
+        `${this.apiUrl}/address/set-default/${addressId}/user/${userId}`,
+        {}
+      )
+      .pipe(
+        tap((updatedAddress) => {
+          const currentAddresses = this.addressSubject.getValue();
+          /*  const updatedAddresses = currentAddresses.map((address) =>
+            address.id === updatedAddress.id ? updatedAddress : address
+          ); */
+          const updatedAddresses = currentAddresses.map((address) => {
+            if (address.userId === userId) {
+              return {
+                ...address,
+                defaultAddress: address.id === updatedAddress.id,
+              };
+            }
+            return address;
+          });
+
+          this.addressSubject.next(updatedAddresses);
+        }),
+        catchError((error) => {
           throw error;
         })
       );

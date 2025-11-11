@@ -7,10 +7,12 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { errorInterceptor } from './interceptors/error.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     provideHttpClient(withInterceptors([JwtInterceptor, errorInterceptor])),
     provideAnimations(),
     provideToastr(),

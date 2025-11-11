@@ -32,7 +32,7 @@ export class NewAddressComponent implements OnInit, OnChanges {
   private toastService = inject(ToastrService);
   private modalEditAddressService = inject(ModalEditAddressService);
   private addressService = inject(AddressService);
-  userSelected?: UsersResponse;
+  userSelected?: Partial<UsersResponse>;
   editAddressForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -43,7 +43,7 @@ export class NewAddressComponent implements OnInit, OnChanges {
     this.modalEditAddressService.getModalState().subscribe((state) => {
       this.isVisible = state.show;
       this.addressSelected = state.addressSelected || null;
-      this.userSelected = state.userSelected || undefined;
+      this.userSelected = state.userSelected;
       if (this.addressSelected) {
         this.editAddressForm.patchValue(this.addressSelected);
       } else {
@@ -69,7 +69,7 @@ export class NewAddressComponent implements OnInit, OnChanges {
         [
           Validators.required,
           Validators.maxLength(8),
-          Validators.pattern(/^\d{8}$/), // Garante o formato 12345678
+          Validators.pattern(/^\d{8}$/),
         ],
       ],
       alias: ['', Validators.required],

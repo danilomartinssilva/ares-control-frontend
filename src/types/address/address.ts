@@ -16,7 +16,8 @@ export interface AddressResponse {
   state: string;
   zipCode: string;
   userId: string;
-  alias?: string;
+  alias: string;
+  country: string;
   defaultAddress?: boolean;
 }
 

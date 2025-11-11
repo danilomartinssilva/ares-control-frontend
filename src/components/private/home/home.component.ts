@@ -110,6 +110,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  redirectToAddressUser(userId: string): void {
+    this.router.navigate(['/address', userId]);
+  }
+
   private subscribeToModals(): void {
     this.modalService.getResult().subscribe((result) => {
       if (result && this.currentUserToDelete) {

@@ -16,6 +16,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'address/:userId',
+    component: AddressComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },
@@ -25,9 +30,5 @@ export const routes: Routes = [
       import('../components/public/login/new-user/new-user.component').then(
         (m) => m.NewUserComponent
       ),
-  },
-  {
-    path: 'address',
-    component: AddressComponent,
   },
 ];
