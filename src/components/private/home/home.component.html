@@ -25,7 +25,11 @@
         Gerenciamento de Clientes
       </h2>
 
-      <button class="btn btn-primary btn-sm btn-md-normal" style="width: 250px" (click)="redirectToAddsUser()">
+      <button
+        class="btn btn-primary btn-sm btn-md-normal"
+        style="width: 250px"
+        (click)="redirectToAddsUser()"
+      >
         <ng-icon name="ionCheckmarkCircle" class="me-2"></ng-icon>
         Cadastrar Novo Usuário
       </button>
@@ -77,6 +81,7 @@
                 </button>
 
                 <button
+                  (click)="callModalUpdateUser(user)"
                   class="btn btn-info btn-sm btn-action"
                   title="Editar cliente"
                 >
@@ -110,11 +115,12 @@
           style="font-size: 48px"
         ></ng-icon>
         <p class="text-muted mt-2 mb-0">Nenhum usuario encontrado.</p>
-        <button class="btn btn-primary mt-3"
-        (click)="redirectToAddsUser()"
-        >Cadastrar Primeiro Usuário</button>
+        <button class="btn btn-primary mt-3" (click)="redirectToAddsUser()">
+          Cadastrar Primeiro Usuário
+        </button>
       </div>
     </div>
   </div>
 </div>
 <app-modal-confirm></app-modal-confirm>
+<app-edit-user></app-edit-user>

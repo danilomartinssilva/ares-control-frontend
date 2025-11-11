@@ -17,11 +17,13 @@ import {
   ModalData,
 } from '../../../services/modal-confirm/modal-confirm.service';
 import { ModalConfirmComponent } from '../../share/modal-confirm/modal-confirm.component';
+import { EditUserComponent } from '../../edit-user/edit-user.component';
+import { ModalEditUserService } from '../../../services/modal-edit-user.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, NgIcon, ModalConfirmComponent],
+  imports: [CommonModule, NgIcon, ModalConfirmComponent, EditUserComponent],
   viewProviders: [
     provideIcons({
       ionLockClosed,
@@ -32,14 +34,17 @@ import { ModalConfirmComponent } from '../../share/modal-confirm/modal-confirm.c
       ionChevronForward,
     }),
   ],
-  providers: [UsersService, ModalConfirmService],
+  providers: [UsersService, ModalConfirmService, ModalEditUserService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   usersSubscribers: UsersResponse[] = [];
   private modalService = inject(ModalConfirmService);
+  private modalEditUserService = inject(ModalEditUserService);
   private currentUserToDelete: string | null = null;
+  isVisibleUpdateUser: boolean = false;
+  currentUserToUpdate: UsersResponse | null = null;
 
   loading: boolean = true;
   error: string = '';
@@ -48,7 +53,19 @@ export class HomeComponent implements OnInit {
   constructor(private usersService: UsersService) {}
 
   private subscribeToUsers(): void {
-    this.usersService.getListOfUsers().subscribe({
+    /*  this.usersService.getListOfUsers().subscribe({
+      next: (users) => {
+        console.log('🚀 ~ HomeComponent ~ subscribeToUsers ~ users:', users);
+        this.usersSubscribers = users;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading users in component:', error);
+        this.loading = false;
+        this.error = error.message || 'Unknown error';
+      },
+    }); */
+    this.usersService.users$.subscribe({
       next: (users) => {
         this.usersSubscribers = users;
         this.loading = false;
@@ -62,7 +79,6 @@ export class HomeComponent implements OnInit {
   }
 
   callModalConfirmRemove(user: UsersResponse): void {
-    console.log('🚀 ~ HomeComponent ~ callModalConfirmRemove ~ user:', user);
     const modalData: ModalData = {
       message: `Deseja realmente excluir o cliente "${user.name}"?`,
       confirmText: 'Excluir',
@@ -99,8 +115,14 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  callModalUpdateUser(user: UsersResponse): void {
+    this.modalEditUserService.show(user);
+  }
+
   ngOnInit() {
     this.subscribeToUsers();
     this.subscribeToModals();
+    this.usersService.getListOfUsers().subscribe();
   }
 }

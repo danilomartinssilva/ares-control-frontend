@@ -46,6 +46,27 @@ export class UsersService {
     return this.usersSubject.asObservable();
   }
 
+  updateUser(userId: string, userData: Partial<UserCreatePayloadRequest>) {
+    return this.http
+      .patch<UsersResponse>(`${this.apiUrl}/users/${userId}`, userData)
+      .pipe(
+        tap((updatedUser) => {
+          const currentUsers = this.usersSubject.getValue();
+          const userIndex = currentUsers.findIndex(
+            (user) => user.id === userId
+          );
+          if (userIndex !== -1) {
+            currentUsers[userIndex] = updatedUser;
+            this.usersSubject.next([...currentUsers]);
+          }
+        }),
+        catchError((error) => {
+          console.error('Error updating user:', error);
+          throw error;
+        })
+      );
+  }
+
   deleteUser(userId: string) {
     return this.http.delete(`${this.apiUrl}/users/${userId}`).pipe(
       tap(() => {

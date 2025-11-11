@@ -1,0 +1,140 @@
+<div
+  class="modal fade"
+  [class.show]="isVisible"
+  [style.display]="isVisible ? 'block' : 'none'"
+  tabindex="-1"
+  role="dialog"
+  style="background-color: rgba(0, 0, 0, 0.5); overflow-y: auto;"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content shadow-lg rounded-lg">
+      <form [formGroup]="editForm" (ngSubmit)="confirm()">
+        <div class="modal-header bg-primary text-white border-bottom-0 rounded-top-lg">
+          <h5 class="modal-title">{{ title }}</h5>
+          <ng-icon name="ionCheckmarkCircle" class="ms-2"></ng-icon>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            aria-label="Close"
+            (click)="close()"
+          ></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <p class="text-muted mb-4">{{ message }}</p>
+
+
+          <div
+            *ngIf="editForm.errors?.['mismatch'] && (editForm.get('password')?.value || editForm.get('repeatedPassword')?.value)"
+            class="alert alert-danger mb-4"
+          >
+            ❌ As senhas digitadas devem ser iguais.
+          </div>
+
+          <div class="row">
+            <!-- Nome -->
+            <div class="col-md-12 mb-3">
+              <label for="name" class="form-label fw-bold">Nome Completo *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                [class.is-invalid]="
+                  editForm.get('name')?.invalid && editForm.get('name')?.touched
+                "
+                placeholder="Digite o nome completo"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editForm.get('name')?.errors?.['required'] && editForm.get('name')?.touched"
+              >
+                Nome é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editForm.get('name')?.errors?.['minlength'] && editForm.get('name')?.touched"
+              >
+                Nome deve ter pelo menos 3 caracteres
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-12 mb-3">
+              <label for="email" class="form-label fw-bold">Email *</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [class.is-invalid]="
+                  editForm.get('email')?.invalid && editForm.get('email')?.touched
+                "
+                placeholder="exemplo@email.com"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editForm.get('email')?.errors?.['required'] && editForm.get('email')?.touched"
+              >
+                Email é obrigatório
+              </div>
+              <div
+                class="invalid-feedback"
+                *ngIf="editForm.get('email')?.errors?.['email'] && editForm.get('email')?.touched"
+              >
+                Digite um email válido
+              </div>
+            </div>
+
+
+            <div class="col-md-12 mb-3">
+              <label for="phone" class="form-label fw-bold">Telefone *</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                formControlName="phone"
+                [class.is-invalid]="
+                  editForm.get('phone')?.invalid && editForm.get('phone')?.touched
+                "
+                placeholder="(11) 99999-9999"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="editForm.get('phone')?.errors?.['required'] && editForm.get('phone')?.touched"
+              >
+                Telefone é obrigatório
+              </div>
+
+              <div
+                class="invalid-feedback"
+                *ngIf="editForm.get('phone')?.errors?.['minlength'] && editForm.get('phone')?.touched"
+              >
+                Telefone deve ter pelo menos 10 caracteres
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+          <p class="text-secondary small">Preencha abaixo se deseja alterar a senha.</p>
+
+
+        </div>
+
+        <div class="modal-footer border-top-0 p-3">
+          <button type="button" class="btn btn-outline-secondary" (click)="close()">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="editForm.invalid"
+          >
+            <ng-icon name="ionCheckmarkCircle" class="me-2"></ng-icon>
+            Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
