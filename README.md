@@ -1,28 +1,33 @@
-# Frontend
+# 💻 Ares Control Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+O **Ares Control Frontend** é a interface de usuário (UI) desenvolvida em **Angular** para o sistema de gerenciamento de cadastros de clientes e endereços. Ele se conecta à [Ares API](https://ares-api-link.onrender.com/) para fornecer uma experiência de usuário fluida e responsiva.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Acesso Rápido
 
-## Code scaffolding
+Aqui estão os links para a aplicação em produção e a documentação do backend:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+| Recurso | Status | URL |
+| :--- | :--- | :--- |
+| **Aplicação em Produção** | Online | [https://ares-control-frontend.onrender.com/](https://ares-control-frontend.onrender.com/) |
+| **Documentação da API (Swagger)** | Online | [https://ares-api-link.onrender.com/api](https://ares-api-link.onrender.com/api) |
 
-## Build
+**(Nota: Substitua `https://ares-api-link.onrender.com/` pelo endereço real do seu backend.)**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## ⚙️ Configuração e Desenvolvimento Local
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 17.3.17.
 
-## Running end-to-end tests
+### 1. Pré-requisitos
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Certifique-se de ter o **Node.js** e o **Angular CLI** instalados globalmente.
 
-## Further help
+### 2. Instalação de Dependências
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-# ares-control-frontend
+Após clonar o repositório, navegue até o diretório do projeto e instale as dependências:
+
+```bash
+npm install
